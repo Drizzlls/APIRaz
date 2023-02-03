@@ -49,7 +49,8 @@ class InfoBotMethods:
                                                           'ASSIGNED_BY_ID',
                                                           'UF_CRM_1668595139',
                                                           'UF_CRM_63C1194BD233D',
-                                                          'ASSIGNED_BY_ID'
+                                                          'ASSIGNED_BY_ID',
+                                                          'UF_CRM_1671012335'
                                                           ])
         pprint.pprint(deal)
         if len(deal) > 0:
@@ -82,7 +83,8 @@ class InfoBotMethods:
                                                           'ASSIGNED_BY_ID',
                                                           'UF_CRM_1668595139',
                                                           'UF_CRM_63C1194BD233D',
-                                                          'ASSIGNED_BY_ID'
+                                                          'ASSIGNED_BY_ID',
+                                                          'UF_CRM_1671012335'
                                                           ])
         if len(deal) > 0:
             for nick in deal:
