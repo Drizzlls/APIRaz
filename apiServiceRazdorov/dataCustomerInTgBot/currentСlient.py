@@ -22,7 +22,8 @@ class CurrentClient:
         """ Получаем Рабочий Telegram канал сотрудника """
         for user in self.allUsersData:
             if int(user['ID']) == int(self.idManager):
-                if user.get('UF_USR_1672311069106',None):
+                lnik = user.get('UF_USR_1672311069106', None)
+                if lnik != None:
                     return user['UF_USR_1672311069106']
         return self.getLinkTelegramSubdivision()
 
@@ -41,7 +42,8 @@ class CurrentClient:
         if isinstance(division, int):
             for user in self.allUsersData:
                 if division in user['UF_DEPARTMENT']:
-                    if user['UF_USR_1672311069106']:
+                    link = user.get('UF_USR_1672311069106', None)
+                    if link != None:
                         return user['UF_USR_1672311069106']
         else:
             return division
@@ -57,6 +59,11 @@ class CurrentClient:
         """ Получаем рандомные ссылки """
         allLink = []
         for link in self.allUsersData:
+            l = link.get('UF_USR_1672311069106', None)
+            print(f'Ошибка - {l}')
+            if l == None:
+                continue
+            print(link['UF_USR_1672311069106'])
             if link['UF_USR_1672311069106']:
                 allLink.append(link['UF_USR_1672311069106'])
         return allLink[randint(0, len(allLink)-1)]
