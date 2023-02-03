@@ -15,14 +15,15 @@ class CurrentClient:
 
     def allUsers(self):
         """ Получаем все данные сотрудников """
-        getAllUsers = Bitrix24Data.B.callMethod('user.get')
+        getAllUsers = Bitrix24Data.B.callMethod('user.search')
         return getAllUsers
 
     def getLinkTelegramManager(self):
         """ Получаем Рабочий Telegram канал сотрудника """
         for user in self.allUsersData:
             if int(user['ID']) == int(self.idManager):
-                return user['UF_USR_1672311069106']
+                if user.get('UF_USR_1672311069106',None):
+                    return user['UF_USR_1672311069106']
         return self.getLinkTelegramSubdivision()
 
     def getSubdivisionManager(self):
