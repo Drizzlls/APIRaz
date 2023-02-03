@@ -1,4 +1,4 @@
-from .serializers import DataCustomerBotSerializer, DataNewClietnBotSerializer, GetClietnBotSerializer
+from .serializers import DataCustomerBotSerializer, DataNewClietnBotSerializer, GetInfoClientSerializer
 from .currentСlient import CurrentClient
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -6,6 +6,7 @@ from .bitrixMethods import updateDataBitrix
 from .newClient import AddNewClient
 from .getClient import GetClientClass
 from datetime import date
+from .infoClientTg import InfoBotMethods
 
 class GetCurrentClient(APIView):
     def post(self, request):
@@ -41,3 +42,11 @@ class GetClient(APIView):
         serializer.is_valid(raise_exception=True)
         client = GetClientClass(nickname=request.data['nickname'])
         return Response(client.defineEntity())
+
+
+class InfoGetClient(APIView):
+    def post(self, request):
+        serializer = GetInfoClientSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        client = InfoBotMethods(nickname=request.data['nickname'],chatId=request.data['chatId'])
+        return Response(client.getNickname())

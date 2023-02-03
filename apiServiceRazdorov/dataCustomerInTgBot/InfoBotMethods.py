@@ -46,27 +46,24 @@ class InfoBotMethods:
                                                           'UF_CRM_1669542261',
                                                           'ASSIGNED_BY_ID',
                                                           'UF_CRM_1668595139',
-                                                          'UF_CRM_63C1194BD233D'
                                                           ])
         if len(deal) > 0:
-            for chat in deal:
-                if int(chat['UF_CRM_63C1194BD233D']) == int(self.chatId):
-                    manager = self.getUser(deal[0]['ASSIGNED_BY_ID'])
-                    leader = self.getUser(deal[0]['UF_CRM_1669542261'])
-                    support = self.getUser(deal[0]['UF_CRM_1668595139'])
-                    return {
-                            "Дата заседания" : deal[0]["UF_CRM_1672350461848"] if deal[0]["UF_CRM_1672350461848"] else 'Пока нет',
-                            "Дата признания банкротом" : deal[0]["UF_CRM_1674476382"] if deal[0]["UF_CRM_1674476382"] else 'Пока нет',
-                            "№ дела" : deal[0]["UF_CRM_6059A855ED8BE"] if deal[0]["UF_CRM_6059A855ED8BE"] else 'Пока нет',
-                            "Стадия дела" : self.stage.get(deal[0]["STAGE_ID"],'В работе'),
-                            "Признание банкротом" : 'Да' if deal[0]["STAGE_ID"] in self.recognized else 'Нет',
-                            "Руководитель группы": f'{leader["name"]} {leader["last_name"]}',
-                            "Рабочий номер руководителя": leader["phone"],
-                            "Ответственный менеджер" : f'{manager["name"]} {manager["last_name"]}',
-                            "Рабочий номер менеджера" : manager["phone"],
-                            "Сотрудник поддержки": f'{support["name"]} {support["last_name"]}',
-                            "Рабочий номер поддержки": support["phone"]
-                    }
+            manager = self.getUser(deal[0]['ASSIGNED_BY_ID'])
+            leader = self.getUser(deal[0]['UF_CRM_1669542261'])
+            support = self.getUser(deal[0]['UF_CRM_1668595139'])
+            return {
+                    "Дата заседания" : deal[0]["UF_CRM_1672350461848"] if deal[0]["UF_CRM_1672350461848"] else 'Пока нет',
+                    "Дата признания банкротом" : deal[0]["UF_CRM_1674476382"] if deal[0]["UF_CRM_1674476382"] else 'Пока нет',
+                    "№ дела" : deal[0]["UF_CRM_6059A855ED8BE"] if deal[0]["UF_CRM_6059A855ED8BE"] else 'Пока нет',
+                    "Стадия дела" : self.stage.get(deal[0]["STAGE_ID"],'В работе'),
+                    "Признание банкротом" : 'Да' if deal[0]["STAGE_ID"] in self.recognized else 'Нет',
+                    "Руководитель группы": f'{leader["name"]} {leader["last_name"]}',
+                    "Рабочий номер руководителя": leader["phone"],
+                    "Ответственный менеджер" : f'{manager["name"]} {manager["last_name"]}',
+                    "Рабочий номер менеджера" : manager["phone"],
+                    "Сотрудник поддержки": f'{support["name"]} {support["last_name"]}',
+                    "Рабочий номер поддержки": support["phone"]
+            }
 
         deal = Bitrix24DataTgInfoBot.B.callMethod('crm.deal.list',
                                                   filter={"CATEGORY_ID": 24, "UF_CRM_1671012335": self.nickname},
@@ -77,27 +74,24 @@ class InfoBotMethods:
                                                           'UF_CRM_1669542261',
                                                           'ASSIGNED_BY_ID',
                                                           'UF_CRM_1668595139',
-                                                          'UF_CRM_1671012335'
                                                           ])
         if len(deal) > 0:
-            for nick in deal:
-                if nick['UF_CRM_1671012335'] == self.nickname and self.nickname != 'None':
-                    manager = self.getUser(deal[0]['ASSIGNED_BY_ID'])
-                    leader = self.getUser(deal[0]['UF_CRM_1669542261'])
-                    support = self.getUser(deal[0]['UF_CRM_1668595139'])
-                    return {
-                        "Дата заседания": deal[0]["UF_CRM_1672350461848"] if deal[0]["UF_CRM_1672350461848"] else 'Пока нет',
-                        "Дата признания банкротом": deal[0]["UF_CRM_1674476382"] if deal[0]["UF_CRM_1674476382"] else 'Пока нет',
-                        "№ дела": deal[0]["UF_CRM_6059A855ED8BE"] if deal[0]["UF_CRM_6059A855ED8BE"] else 'Пока нет',
-                        "Стадия дела": self.stage.get(deal[0]["STAGE_ID"], 'В работе'),
-                        "Признание банкротом": 'Да' if deal[0]["STAGE_ID"] in self.recognized else 'Нет',
-                        "Руководитель группы": f'{leader["name"]} {leader["last_name"]}',
-                        "Рабочий номер руководителя": leader["phone"],
-                        "Ответственный менеджер": f'{manager["name"]} {manager["last_name"]}',
-                        "Рабочий номер менеджера": manager["phone"],
-                        "Сотрудник поддержки": f'{support["name"]} {support["last_name"]}',
-                        "Рабочий номер поддержки": support["phone"]
-                    }
+            manager = self.getUser(deal[0]['ASSIGNED_BY_ID'])
+            leader = self.getUser(deal[0]['UF_CRM_1669542261'])
+            support = self.getUser(deal[0]['UF_CRM_1668595139'])
+            return {
+                "Дата заседания": deal[0]["UF_CRM_1672350461848"] if deal[0]["UF_CRM_1672350461848"] else 'Пока нет',
+                "Дата признания банкротом": deal[0]["UF_CRM_1674476382"] if deal[0]["UF_CRM_1674476382"] else 'Пока нет',
+                "№ дела": deal[0]["UF_CRM_6059A855ED8BE"] if deal[0]["UF_CRM_6059A855ED8BE"] else 'Пока нет',
+                "Стадия дела": self.stage.get(deal[0]["STAGE_ID"], 'В работе'),
+                "Признание банкротом": 'Да' if deal[0]["STAGE_ID"] in self.recognized else 'Нет',
+                "Руководитель группы": f'{leader["name"]} {leader["last_name"]}',
+                "Рабочий номер руководителя": leader["phone"],
+                "Ответственный менеджер": f'{manager["name"]} {manager["last_name"]}',
+                "Рабочий номер менеджера": manager["phone"],
+                "Сотрудник поддержки": f'{support["name"]} {support["last_name"]}',
+                "Рабочий номер поддержки": support["phone"]
+            }
 
         return 'Ваш аккаунт не идентифицирован в системе. Обратитесь к своему менеджеру для регистрации'
 
