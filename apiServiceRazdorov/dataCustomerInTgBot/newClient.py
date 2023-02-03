@@ -54,7 +54,8 @@ class AddNewClient:
         """ Получаем ссылку сотрудника из группы """
         for user in self.allUserInGroup:
             print(user["LAST_NAME"])
-            if user["UF_USR_1672311069106"]:
+            pprint.pprint(user)
+            if user.get("UF_USR_1672311069106", None):
                 self.link = user["UF_USR_1672311069106"]
                 self.idManager = user["ID"]
                 return {"link": self.link, "idManager": self.idManager}
@@ -62,7 +63,7 @@ class AddNewClient:
 
     def allUserInGroup(self):
         """ Получаем список сотрудников в рабочей группе """
-        allUsers = Bitrix24Data.B.callMethod('user.search',FILTER={"UF_DEPARTMENT":self.idGroup})
+        allUsers = Bitrix24Data.B.callMethod('user.get', FILTER={"UF_DEPARTMENT":self.idGroup})
         return allUsers
 
     def addLead(self):
