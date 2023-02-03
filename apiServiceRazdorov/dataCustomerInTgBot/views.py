@@ -1,4 +1,4 @@
-from .serializers import DataCustomerBotSerializer, DataNewClietnBotSerializer, GetInfoClientSerializer
+from .serializers import DataCustomerBotSerializer, DataNewClietnBotSerializer, GetInfoClientSerializer, GetClietnBotSerializer
 from .currentСlient import CurrentClient
 from rest_framework.views import APIView
 from rest_framework.response import Response

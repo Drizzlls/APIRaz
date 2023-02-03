@@ -55,7 +55,7 @@ class GetClientClass:
             'Тип': 'Сделка',
             'ID': data[0]['ID'],
             'Ответственный': self.getManager(data[0]['ASSIGNED_BY_ID']),
-            'Группа': self.getGroup(data[0]['UF_CRM_1669542261']),
+            'Группа': self.getGroup(data[0]['UF_CRM_1669542261']) if data[0]['UF_CRM_1669542261'] else 'Руководитель не заполнен',
             'Дата заключения договора':data[0]['UF_CRM_62DAB2BE1B9C0'][:-15] if data[0]['UF_CRM_62DAB2BE1B9C0'] else 'Нет',
             'Номер дела':data[0]['UF_CRM_6059A855ED8BE'] if data[0]['UF_CRM_6059A855ED8BE'] else 'Нет',
             'Источник': self.getSource(id=data[0]['UF_CRM_5F3BE0484AC8C'],entity='deal'),
@@ -95,8 +95,9 @@ class GetClientClass:
             except:
                 return id
 
-    def getGroup(self,id):
+    def getGroup(self, id):
         """ Определяем группу """
+        print(f'{id}')
         departamentManager = Bitrix24Data.B.callMethod('user.get', id=id)
         dictGroup = {
             80: 'Носуля',
@@ -105,6 +106,7 @@ class GetClientClass:
             88: 'Арсеньев',
             90: 'Шмелев'
         }
+        print(departamentManager)
         for group in departamentManager[0]['UF_DEPARTMENT']:
             if group in dictGroup.keys():
                 return dictGroup[group]

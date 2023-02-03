@@ -18,3 +18,6 @@ class DataNewClietnBotSerializer(serializers.Serializer):
 class GetInfoClientSerializer(serializers.Serializer):
     nickname = serializers.CharField()
     chatId = serializers.IntegerField()
+
+class GetClietnBotSerializer(serializers.Serializer):
+    nickname = serializers.CharField()
