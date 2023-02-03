@@ -1,3 +1,5 @@
+import pprint
+
 from bitrixTask.classBitrix import Bitrix24DataTgInfoBot
 
 
@@ -46,8 +48,10 @@ class InfoBotMethods:
                                                           'UF_CRM_1669542261',
                                                           'ASSIGNED_BY_ID',
                                                           'UF_CRM_1668595139',
-                                                          'UF_CRM_63C1194BD233D'
+                                                          'UF_CRM_63C1194BD233D',
+                                                          'ASSIGNED_BY_ID'
                                                           ])
+        pprint.pprint(deal)
         if len(deal) > 0:
             for chat in deal:
                 if int(chat['UF_CRM_63C1194BD233D']) == int(self.chatId):
@@ -77,7 +81,8 @@ class InfoBotMethods:
                                                           'UF_CRM_1669542261',
                                                           'ASSIGNED_BY_ID',
                                                           'UF_CRM_1668595139',
-                                                          'UF_CRM_1671012335'
+                                                          'UF_CRM_63C1194BD233D',
+                                                          'ASSIGNED_BY_ID'
                                                           ])
         if len(deal) > 0:
             for nick in deal:
@@ -103,6 +108,12 @@ class InfoBotMethods:
 
     def getUser(self, idManager):
         user = Bitrix24DataTgInfoBot.B.callMethod('user.get',ID=idManager)
+        if user == []:
+            return {
+                'phone': '',
+                'name': '',
+                'last_name': ''
+            }
         return {
             'phone': user[0]['WORK_PHONE'],
             'name' : user[0]['NAME'],

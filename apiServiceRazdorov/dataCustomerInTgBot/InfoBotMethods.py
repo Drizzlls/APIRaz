@@ -47,6 +47,8 @@ class InfoBotMethods:
                                                           'ASSIGNED_BY_ID',
                                                           'UF_CRM_1668595139',
                                                           ])
+
+
         if len(deal) > 0:
             manager = self.getUser(deal[0]['ASSIGNED_BY_ID'])
             leader = self.getUser(deal[0]['UF_CRM_1669542261'])
@@ -97,6 +99,7 @@ class InfoBotMethods:
 
     def getUser(self, idManager):
         user = Bitrix24DataTgInfoBot.B.callMethod('user.get',ID=idManager)
+
         return {
             'phone': user[0]['WORK_PHONE'],
             'name' : user[0]['NAME'],
