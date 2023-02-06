@@ -17,9 +17,12 @@ class GetClientClass:
         self.sourceId = {
             ""
         }
+        # Признанные
+        self.recognized = ["C24:UC_NTWW9M", "C24:UC_E87W9B", "C24:2", "C24:3", "C24:4", "C24:5", "C24:6", "C24:7",
+                           "C24:UC_6ZM2T2", "C24:WON"]
 
     def defineEntity(self):
-        deal = Bitrix24Data.B.callMethod('crm.deal.list',filter={"UF_CRM_1671012335": self.nickname}, select=['CONTACT_ID','ASSIGNED_BY_ID','UF_CRM_62DAB2BE1B9C0','UF_CRM_6059A855ED8BE','UF_CRM_5F3BE0484AC8C','STAGE_ID','UF_CRM_1671012335','CATEGORY_ID','UF_CRM_1674476382','UF_CRM_1669542261'])
+        deal = Bitrix24Data.B.callMethod('crm.deal.list',filter={"UF_CRM_1671012335": self.nickname}, select=['CONTACT_ID','ASSIGNED_BY_ID','UF_CRM_62DAB2BE1B9C0','UF_CRM_6059A855ED8BE','UF_CRM_5F3BE0484AC8C','STAGE_ID','UF_CRM_1671012335','CATEGORY_ID','UF_CRM_1674476382','UF_CRM_1669542261','STAGE_ID'])
         if deal != []:
             return self.getDeal(deal),
         lead = Bitrix24Data.B.callMethod('crm.lead.list',filter={"UF_CRM_1673529241": self.nickname},select=['ID','ASSIGNED_BY_ID','UF_CRM_1597759307071','NAME','LAST_NAME','SECOND_NAME'])
@@ -62,7 +65,7 @@ class GetClientClass:
             'Имя клиента':contact['NAME'],
             'Фамилия клиента':contact['LAST_NAME'],
             'Отчество клиента':contact['SECOND_NAME'],
-            'Дата признания': data[0]['UF_CRM_1674476382'][:-15] if data[0]['UF_CRM_1674476382'][:-15] else 'Нет',
+            'Признан': 'Да' if data[0]["STAGE_ID"] in self.recognized else 'Нет',
             }
 
 
