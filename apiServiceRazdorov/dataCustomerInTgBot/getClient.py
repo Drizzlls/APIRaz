@@ -66,24 +66,26 @@ class GetClientClass:
             'Фамилия клиента':contact['LAST_NAME'],
             'Отчество клиента':contact['SECOND_NAME'],
             'Признан': 'Да' if data[0]["STAGE_ID"] in self.recognized else 'Нет',
+            'Номер телефона клиента': contact['PHONE'][0]['VALUE'],
             }
 
 
     def getContact(self, id):
         """ Получаем контакт """
         contact = Bitrix24Data.B.callMethod('crm.contact.get', id=id)
-        return {'NAME': contact['NAME'] if contact['NAME'] else '',
-                'LAST_NAME':contact['LAST_NAME'] if contact['LAST_NAME'] else '',
-                'SECOND_NAME':contact['SECOND_NAME'] if contact['SECOND_NAME'] else ''}
+        return {'NAME': contact['NAME'] if contact.get('NAME', None) is not None else '',
+                'LAST_NAME':contact['LAST_NAME'] if contact.get('LAST_NAME', None) is not None else '',
+                'SECOND_NAME':contact['SECOND_NAME'] if contact.get('SECOND_NAME', None) is not None else '',
+                'PHONE':contact['PHONE'] if contact.get('PHONE', None) is not None else ''}
 
-    def getManager(self,id):
+    def getManager(self, id):
         try:
             manager = AllManagers.objects.get(idManager=id).name
             return manager
         except:
             return id
 
-    def getSource(self,id,entity):
+    def getSource(self, id, entity):
         """ Определяем источник в сущности """
         if entity == 'lead':
             try:
@@ -100,7 +102,6 @@ class GetClientClass:
 
     def getGroup(self, id):
         """ Определяем группу """
-        print(f'{id}')
         departamentManager = Bitrix24Data.B.callMethod('user.get', id=id)
         dictGroup = {
             80: 'Носуля',
