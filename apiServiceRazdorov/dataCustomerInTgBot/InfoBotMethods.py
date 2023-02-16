@@ -50,6 +50,7 @@ class InfoBotMethods:
 
 
         if len(deal) > 0:
+            """ Переписать в одну функцию """
             manager = self.getUser(deal[0]['ASSIGNED_BY_ID'])
             leader = self.getUser(deal[0]['UF_CRM_1669542261'])
             support = self.getUser(deal[0]['UF_CRM_1668595139'])
@@ -66,7 +67,8 @@ class InfoBotMethods:
                     "Сотрудник поддержки": f'{support["name"]} {support["last_name"]}',
                     "Рабочий номер поддержки": support["phone"],
                     "Операционный директор": 'Бабаков Данил Алексеевич',
-                    "Рабочий номер Операционного директора": "89604616785"
+                    "Рабочий номер Операционного директора": "89604616785",
+
             }
 
         deal = Bitrix24DataTgInfoBot.B.callMethod('crm.deal.list',
