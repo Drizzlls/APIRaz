@@ -17,7 +17,6 @@ class GetCurrentClient(APIView):
         if link.find('t.me') != -1:
             updateBitrix = updateDataBitrix(id=request.data['idDeal'], nickname=request.data['nickname'], chatId=request.data['chatId'], date=date.today())
             updateBitrix()
-        print(link)
         return Response(link)
 
 

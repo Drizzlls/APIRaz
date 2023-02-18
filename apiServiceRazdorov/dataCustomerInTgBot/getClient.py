@@ -51,9 +51,26 @@ class GetClientClass:
         self.recognized = ["C24:UC_NTWW9M", "C24:UC_E87W9B", "C24:2", "C24:3", "C24:4", "C24:5", "C24:6", "C24:7",
                            "C24:UC_6ZM2T2", "C24:WON"]
 
-
+        self.financeManager = {
+            '54': 'Суслов',
+            '56': 'Барабаш',
+            '58': 'Попов',
+            '698': 'Проноза',
+            '786': 'Микуцкий',
+            '23936': 'Ковалев/Бубенцова',
+            '23938': 'Суховерхов',
+            '23940': 'Кавокин',
+            '26048': 'Шаронова',
+            '26050': 'Усова',
+            '26052': 'Самойлов',
+            '26054': 'Савлучинский',
+            '26056': 'Холостова',
+            '26058': 'Ильин',
+            '26060': 'Терентьев',
+            '26062': 'Асаинов',
+        }
     def defineEntity(self):
-        deal = Bitrix24Data.B.callMethod('crm.deal.list',filter={"UF_CRM_1671012335": self.nickname}, select=['CONTACT_ID','ASSIGNED_BY_ID','UF_CRM_62DAB2BE1B9C0','UF_CRM_6059A855ED8BE','UF_CRM_5F3BE0484AC8C','STAGE_ID','UF_CRM_1671012335','CATEGORY_ID','UF_CRM_1674476382','UF_CRM_1669542261','STAGE_ID'])
+        deal = Bitrix24Data.B.callMethod('crm.deal.list',filter={"UF_CRM_1671012335": self.nickname}, select=['CONTACT_ID','ASSIGNED_BY_ID','UF_CRM_62DAB2BE1B9C0','UF_CRM_6059A855ED8BE','UF_CRM_5F3BE0484AC8C','STAGE_ID','UF_CRM_1671012335','CATEGORY_ID','UF_CRM_1674476382','UF_CRM_1669542261','STAGE_ID','UF_CRM_1560419829978'])
         if deal != []:
             return self.getDeal(deal),
         lead = Bitrix24Data.B.callMethod('crm.lead.list',filter={"UF_CRM_1673529241": self.nickname},select=['ID','ASSIGNED_BY_ID','UF_CRM_1597759307071','NAME','LAST_NAME','SECOND_NAME'])
@@ -85,6 +102,7 @@ class GetClientClass:
                 if deal['STAGE_ID'] == 'C14:WON' or deal['CATEGORY_ID'] == '0':
                     data.remove(deal)
         contact = self.getContact(data[0]['CONTACT_ID'])
+        print('Вот поле - ',data[0]["UF_CRM_1560419829978"])
         return {
             'Тип': 'Сделка',
             'ID': data[0]['ID'],
@@ -99,6 +117,8 @@ class GetClientClass:
             'Признан': 'Да' if data[0]["STAGE_ID"] in self.recognized else 'Нет',
             'Номер телефона клиента': contact['PHONE'][0]['VALUE'],
             'Стадия' : self.stage.get(data[0]["STAGE_ID"], 'Стадии нет в базе'),
+             'Финансовый управляющий': self.financeManager.get(deal[0].get("UF_CRM_1560419829978", ''),
+                                                                          '')
 
             }
 

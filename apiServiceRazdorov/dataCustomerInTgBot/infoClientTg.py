@@ -65,6 +65,24 @@ class InfoBotMethods:
         }
         # Признанные
         self.recognized = ["C24:UC_NTWW9M","C24:UC_E87W9B","C24:2","C24:3","C24:4","C24:5","C24:6","C24:7", "C24:UC_6ZM2T2", "C24:WON"]
+        self.financeManager = {
+            '54': 'Суслов',
+            '56': 'Барабаш',
+            '58': 'Попов',
+            '698': 'Проноза',
+            '786': 'Микуцкий',
+            '23936': 'Ковалев/Бубенцова',
+            '23938': 'Суховерхов',
+            '23940': 'Кавокин',
+            '26048': 'Шаронова',
+            '26050': 'Усова',
+            '26052': 'Самойлов',
+            '26054': 'Савлучинский',
+            '26056': 'Холостова',
+            '26058': 'Ильин',
+            '26060': 'Терентьев',
+            '26062': 'Асаинов',
+        }
 
     def getNickname(self):
         deal = Bitrix24DataTgInfoBot.B.callMethod('crm.deal.list',
@@ -80,7 +98,9 @@ class InfoBotMethods:
                                                           'ASSIGNED_BY_ID',
                                                           'UF_CRM_1671012335',
                                                           'UF_CRM_1670399797',
-                                                          *self.stageTime.values()
+                                                          *self.stageTime.values(),
+                                                          'TITLE',
+                                                          'UF_CRM_1560419829978'
                                                           ])
         if len(deal) > 0:
             for chat in deal:
@@ -89,6 +109,7 @@ class InfoBotMethods:
                     leader = self.getUser(deal[0]['UF_CRM_1669542261'])
                     support = self.getUser(deal[0]['UF_CRM_1668595139'])
                     return {
+                            "ФИО": deal[0]['TITLE'],
                             "Дата заседания" : deal[0]["UF_CRM_1672350461848"] if deal[0]["UF_CRM_1672350461848"] else 'Пока нет',
                             "Дата признания банкротом" : deal[0]["UF_CRM_1674476382"] if deal[0]["UF_CRM_1674476382"] else 'Пока нет',
                             "№ дела" : deal[0]["UF_CRM_6059A855ED8BE"] if deal[0]["UF_CRM_6059A855ED8BE"] else 'Пока нет',
@@ -106,18 +127,37 @@ class InfoBotMethods:
                             "Рабочий номер поддержки": support["phone"],
                             "Операционный директор": 'Бабаков Данил Алексеевич',
                             "Рабочий номер Операционного директора": "89604616785",
+                            'Финансовый управляющий': self.financeManager.get(deal[0].get("UF_CRM_1560419829978", ''),
+                                                                          '')
                     }
 
         deal = Bitrix24DataTgInfoBot.B.callMethod('crm.deal.list',
                                                   filter={"CATEGORY_ID": 24, "UF_CRM_1671012335": self.nickname},
-                                                 )
+                                                  select=['UF_CRM_1672350461848',
+                                                          'UF_CRM_1674476382',
+                                                          'UF_CRM_6059A855ED8BE',
+                                                          'STAGE_ID',
+                                                          'UF_CRM_1669542261',
+                                                          'ASSIGNED_BY_ID',
+                                                          'UF_CRM_1668595139',
+                                                          'UF_CRM_63C1194BD233D',
+                                                          'ASSIGNED_BY_ID',
+                                                          'UF_CRM_1671012335',
+                                                          'UF_CRM_1670399797',
+                                                          *self.stageTime.values(),
+                                                          'TITLE',
+                                                          'UF_CRM_1560419829978'
+                                                          ])
+
+        # print(deal)
         if len(deal) > 0:
             for nick in deal:
-                if nick['UF_CRM_1671012335'] == self.nickname and self.nickname != 'None':
+                if nick.get('UF_CRM_1671012335',None) == self.nickname and self.nickname != 'None':
                     manager = self.getUser(deal[0]['ASSIGNED_BY_ID'])
                     leader = self.getUser(deal[0]['UF_CRM_1669542261'])
                     support = self.getUser(deal[0]['UF_CRM_1668595139'])
                     return {
+                        "ФИО": deal[0]['TITLE'],
                         "Дата заседания": deal[0]["UF_CRM_1672350461848"] if deal[0]["UF_CRM_1672350461848"] else 'Пока нет',
                         "Дата признания банкротом": deal[0]["UF_CRM_1674476382"] if deal[0]["UF_CRM_1674476382"] else 'Пока нет',
                         "№ дела": deal[0]["UF_CRM_6059A855ED8BE"] if deal[0]["UF_CRM_6059A855ED8BE"] else 'Пока нет',
@@ -134,7 +174,9 @@ class InfoBotMethods:
                         "Сотрудник поддержки": f'{support["name"]} {support["last_name"]}',
                         "Рабочий номер поддержки": support["phone"],
                         "Операционный директор": 'Бабаков Данил Алексеевич',
-                        "Рабочий номер Операционного директора": "89604616785"
+                        "Рабочий номер Операционного директора": "89604616785",
+                        'Финансовый управляющий': self.financeManager.get(deal[0].get("UF_CRM_1560419829978", ''),
+                                                                          '')
                     }
 
         return 'Ваш аккаунт не идентифицирован в системе. Обратитесь к своему менеджеру для регистрации'
