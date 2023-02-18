@@ -68,6 +68,8 @@ class GetClientClass:
             '26058': 'Ильин',
             '26060': 'Терентьев',
             '26062': 'Асаинов',
+            '':'',
+            None: ''
         }
     def defineEntity(self):
         deal = Bitrix24Data.B.callMethod('crm.deal.list',filter={"UF_CRM_1671012335": self.nickname}, select=['CONTACT_ID','ASSIGNED_BY_ID','UF_CRM_62DAB2BE1B9C0','UF_CRM_6059A855ED8BE','UF_CRM_5F3BE0484AC8C','STAGE_ID','UF_CRM_1671012335','CATEGORY_ID','UF_CRM_1674476382','UF_CRM_1669542261','STAGE_ID','UF_CRM_1560419829978'])
@@ -110,15 +112,14 @@ class GetClientClass:
             'Группа': self.getGroup(data[0]['UF_CRM_1669542261']) if data[0]['UF_CRM_1669542261'] else 'Руководитель не заполнен',
             'Дата заключения договора':data[0]['UF_CRM_62DAB2BE1B9C0'][:-15] if data[0]['UF_CRM_62DAB2BE1B9C0'] else 'Нет',
             'Номер дела':data[0]['UF_CRM_6059A855ED8BE'] if data[0]['UF_CRM_6059A855ED8BE'] else 'Нет',
-            'Источник': self.getSource(id=data[0]['UF_CRM_5F3BE0484AC8C'],entity='deal'),
+            'Источник': self.getSource(id=data[0]['UF_CRM_5F3BE0484AC8C'], entity='deal'),
             'Имя клиента':contact['NAME'],
             'Фамилия клиента':contact['LAST_NAME'],
             'Отчество клиента':contact['SECOND_NAME'],
             'Признан': 'Да' if data[0]["STAGE_ID"] in self.recognized else 'Нет',
             'Номер телефона клиента': contact['PHONE'][0]['VALUE'],
             'Стадия' : self.stage.get(data[0]["STAGE_ID"], 'Стадии нет в базе'),
-             'Финансовый управляющий': self.financeManager.get(deal[0].get("UF_CRM_1560419829978", ''),
-                                                                          '')
+             'Финансовый управляющий': self.financeManager[deal[0]["UF_CRM_1560419829978"]]
 
             }
 
