@@ -116,7 +116,7 @@ class InfoBotMethods:
                             "Стадия дела" : self.stage.get(deal[0]["STAGE_ID"], 'В работе'),
                         'Дней нахождения в стадии': (datetime.strptime(str(datetime.now().date()),
                                                                        "%Y-%m-%d") - datetime.strptime(
-                            deal[0][self.timeInStage(deal[0]["STAGE_ID"])][0:10], "%Y-%m-%d")).days + 1 if self.timeInStage(deal[0]["STAGE_ID"]) is not None else '0',
+                            deal[0][self.timeInStage(deal[0]["STAGE_ID"])][0:10], "%Y-%m-%d")).days + 1 if deal[0][self.timeInStage(deal[0]["STAGE_ID"])][0:10] != '' else '0',
 
                         "Признание банкротом" : 'Да' if deal[0]["STAGE_ID"] in self.recognized else 'Нет',
                             "Руководитель группы": f'{leader["name"]} {leader["last_name"]}',
@@ -164,7 +164,7 @@ class InfoBotMethods:
                         "Стадия дела": self.stage.get(deal[0]["STAGE_ID"], 'В работе'),
                         'Дней нахождения в стадии': (datetime.strptime(str(datetime.now().date()),
                                                                        "%Y-%m-%d") - datetime.strptime(
-                            deal[0][self.timeInStage(deal[0]["STAGE_ID"])][0:10], "%Y-%m-%d")).days + 1 if self.timeInStage(deal[0]["STAGE_ID"]) is not None else '0',
+                            deal[0][self.timeInStage(deal[0]["STAGE_ID"])][0:10], "%Y-%m-%d")).days + 1 if deal[0][self.timeInStage(deal[0]["STAGE_ID"])][0:10] != '' else '0',
 
                         "Признание банкротом": 'Да' if deal[0]["STAGE_ID"] in self.recognized else 'Нет',
                         "Руководитель группы": f'{leader["name"]} {leader["last_name"]}',
