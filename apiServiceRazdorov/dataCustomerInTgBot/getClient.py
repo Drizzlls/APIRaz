@@ -96,6 +96,7 @@ class GetClientClass:
 
     def getDeal(self, data):
         """ Получаем сделку """
+
         if len(data) > 1:
             for deal in data:
                 if deal["UF_CRM_1671012335"] != self.nickname:
@@ -104,7 +105,6 @@ class GetClientClass:
                 if deal['STAGE_ID'] == 'C14:WON' or deal['CATEGORY_ID'] == '0':
                     data.remove(deal)
         contact = self.getContact(data[0]['CONTACT_ID'])
-        print('Вот поле - ',data[0]["UF_CRM_1560419829978"])
         return {
             'Тип': 'Сделка',
             'ID': data[0]['ID'],
@@ -119,8 +119,7 @@ class GetClientClass:
             'Признан': 'Да' if data[0]["STAGE_ID"] in self.recognized else 'Нет',
             'Номер телефона клиента': contact['PHONE'][0]['VALUE'],
             'Стадия' : self.stage.get(data[0]["STAGE_ID"], 'Стадии нет в базе'),
-             'Финансовый управляющий': self.financeManager[deal[0]["UF_CRM_1560419829978"]]
-
+             'Финансовый управляющий': self.financeManager[data[0]["UF_CRM_1560419829978"]]
             }
 
 
