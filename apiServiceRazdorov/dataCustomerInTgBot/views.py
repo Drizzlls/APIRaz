@@ -49,3 +49,10 @@ class InfoGetClient(APIView):
         serializer.is_valid(raise_exception=True)
         client = InfoBotMethods(nickname=request.data['nickname'],chatId=request.data['chatId'])
         return Response(client.getNickname())
+
+class LinkGetClient(APIView):
+    def post(self, request):
+        serializer = GetInfoClientSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        client = InfoBotMethods(nickname=request.data['nickname'],chatId=request.data['chatId'])
+        return Response(client.getLinkEducation())

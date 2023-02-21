@@ -111,3 +111,6 @@ class InfoBotMethods:
             'name' : user[0]['NAME'],
             'last_name' : user[0]['LAST_NAME']
         }
+
+
+

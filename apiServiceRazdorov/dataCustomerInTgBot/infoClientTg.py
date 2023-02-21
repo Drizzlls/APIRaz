@@ -197,3 +197,21 @@ class InfoBotMethods:
 
     def timeInStage(self, id):
         return self.stageTime.get(id , None)
+
+    def getLinkEducation(self):
+        deal = Bitrix24DataTgInfoBot.B.callMethod('crm.deal.list',
+                                                  filter={"CATEGORY_ID": 24, "UF_CRM_63C1194BD233D": self.chatId},
+                                                  select=['UF_CRM_1666347597'])
+
+        if len(deal) > 0:
+
+            return {'Персональная ссылка на обучение': deal[0]["UF_CRM_1666347597"]}
+
+        deal = Bitrix24DataTgInfoBot.B.callMethod('crm.deal.list',
+                                                  filter={"CATEGORY_ID": 24, "UF_CRM_1671012335": self.nickname},
+                                                  select=['UF_CRM_1666347597'])
+        if len(deal) > 0:
+
+            return {'Персональная ссылка на обучение': deal[0]["UF_CRM_1666347597"]}
+
+        return 'Ваш аккаунт не идентифицирован в системе. Обратитесь к своему менеджеру для регистрации'
