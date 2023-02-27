@@ -7,6 +7,7 @@ from .newClient import AddNewClient
 from .getClient import GetClientClass
 from datetime import date
 from .infoClientTg import InfoBotMethods
+from .userGetMoney import GetMoney
 
 class GetCurrentClient(APIView):
     def post(self, request):
@@ -56,3 +57,10 @@ class LinkGetClient(APIView):
         serializer.is_valid(raise_exception=True)
         client = InfoBotMethods(nickname=request.data['nickname'],chatId=request.data['chatId'])
         return Response(client.getLinkEducation())
+
+class UserGetMoney(APIView):
+    def post(self, request):
+        serializer = GetInfoClientSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        client = GetMoney(nickname=request.data['nickname'],chatId=request.data['chatId'])
+        return Response(client.getUser())
