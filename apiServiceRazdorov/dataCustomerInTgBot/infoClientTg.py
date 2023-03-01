@@ -61,6 +61,7 @@ class InfoBotMethods:
             "C24:UC_SR23DP": "UF_CRM_1676541413",
             "C24:UC_RHCPBY": "UF_CRM_1676541441",
             "C24:WON": "UF_CRM_1670400958",
+            'C24:UC_D8LIHS': 'UF_CRM_1677666841'
 
         }
         # Признанные
