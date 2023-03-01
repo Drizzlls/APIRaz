@@ -191,7 +191,7 @@ class InfoBotMethods:
                 'last_name': ''
             }
         return {
-            'phone': user[0]['WORK_PHONE'],
+            'phone': user[0]['WORK_PHONE'] if user[0].get('WORK_PHONE', None) else '',
             'name' : user[0]['NAME'],
             'last_name' : user[0]['LAST_NAME']
         }
