@@ -77,13 +77,15 @@ class GetMoney:
                                                           'UF_CRM_63C1194BD233D',
                                                           'UF_CRM_1675757918862',
                                                           'UF_CRM_1677314961482',
-                                                          'UF_CRM_1677314971866'
+                                                          'UF_CRM_1677314971866',
+                                                          'UF_CRM_1671012335'
                                                           ])
 
         if len(deal) > 0:
             for nick in deal:
-                if int(nick['UF_CRM_63C1194BD233D']) == int(self.nick):
+                if nick['UF_CRM_1671012335'] == str(self.nickname):
                     if nick['UF_CRM_1675757918862'] not in [None, '26016']:
+
                         return 'Прошлый процесс снятия не закрыт , обратитесь к своему сопровождающему' # Процесс завершен или не заполнен
                     if self.getRequisites(nick): # Процесс завершен или не заполнен
                         if nick.get('UF_CRM_1673863435606', None) == '25990':  # ФУ
@@ -91,7 +93,7 @@ class GetMoney:
                                                                                        fields={
                                                                                            'UF_CRM_1673863688405': datetime.now().date()
                                                                                        })
-                            startProcess = self.startBusinessProcess(chat['ID'])
+                            startProcess = self.startBusinessProcess(nick['ID'])
 
                             return 'Ok'
                         elif nick.get('UF_CRM_1673863435606', None) == '25992': # Должник
@@ -119,9 +121,6 @@ class GetMoney:
         return 'Процесс выполнен'
 
     def getRequisites(self, data):
-        print(data['UF_CRM_1677314961482'])
-        print(data['UF_CRM_1677314971866'])
-        print(data['UF_CRM_1675757918862'])
         if data.get('UF_CRM_1677314961482', None) or data.get('UF_CRM_1677314971866', None)!=[]:
             return True
         else:
