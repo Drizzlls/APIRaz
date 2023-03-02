@@ -12,5 +12,5 @@ class Bitrix24DataTgBot:
     B = Bitrix24(WEBHOOK)
 
 class Bitrix24DataTgInfoBot:
-    WEBHOOK = "https://novoedelo.bitrix24.ru/rest/16/3y25ftb31s7262ka/"
+    WEBHOOK = "https://novoedelo.bitrix24.ru/rest/16/xncdiq6cdpsetre9/"
     B = Bitrix24(WEBHOOK)
