@@ -47,7 +47,7 @@ class GetMoney:
                                                                                        })
                             startProcess = self.startBusinessProcess(chat['ID'])
 
-                            return 'Ok'
+                            return 'Запрос принят'
                         elif chat.get('UF_CRM_1673863435606', None) == '25992': # Должник
                             updateDeal = deal = Bitrix24DataTgInfoBot.B.callMethod('crm.deal.update', ID=chat['ID'],
                                                                                        fields={
@@ -55,7 +55,7 @@ class GetMoney:
                                                                                        })
                             startProcess = self.startBusinessProcess(chat['ID'])
 
-                            return 'Ok'
+                            return 'Запрос принят'
                         elif chat.get('UF_CRM_1673863435606', None) == '26096': # Нет официального дохода
                             return 'Ошибка запроса , обратитесь к своему сопровождающему'
                         else:
@@ -95,7 +95,7 @@ class GetMoney:
                                                                                        })
                             startProcess = self.startBusinessProcess(nick['ID'])
 
-                            return 'Ok'
+                            return 'Запрос принят'
                         elif nick.get('UF_CRM_1673863435606', None) == '25992': # Должник
                             updateDeal = deal = Bitrix24DataTgInfoBot.B.callMethod('crm.deal.update', ID=nick['ID'],
                                                                                        fields={
@@ -103,7 +103,7 @@ class GetMoney:
                                                                                        })
                             startProcess = self.startBusinessProcess(nick['ID'])
 
-                            return 'Ok'
+                            return 'Запрос принят'
                         elif nick.get('UF_CRM_1673863435606', None) == '26096': # Нет официального дохода
                             return 'Ошибка запроса , обратитесь к своему сопровождающему'
                         else:
