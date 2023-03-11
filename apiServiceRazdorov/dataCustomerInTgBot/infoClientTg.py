@@ -34,6 +34,8 @@ class InfoBotMethods:
         "C24:APOLOGY": "Анализ причины провала",
         "C24:1": "Расторжение",
         "C24:WON": "Сделка успешна",
+        'C24:UC_D8LIHS' : 'Ожидание',
+        'C24:UC_8H9VN0' : 'Анализ имущества и ситуации',
     }
         # ID Стадии : Поле со временем
         self.stageTime = {
@@ -61,7 +63,10 @@ class InfoBotMethods:
             "C24:UC_SR23DP": "UF_CRM_1676541413",
             "C24:UC_RHCPBY": "UF_CRM_1676541441",
             "C24:WON": "UF_CRM_1670400958",
-            'C24:UC_D8LIHS': 'UF_CRM_1677666841'
+            'C24:UC_D8LIHS': 'UF_CRM_1677666841',
+            '': '',
+            None: '',
+            'C24:UC_8H9VN0': 'UF_CRM_1678126308065'
 
         }
         # Признанные
@@ -119,7 +124,7 @@ class InfoBotMethods:
                             "Стадия дела" : self.stage.get(deal[0]["STAGE_ID"], 'В работе'),
                         'Дней нахождения в стадии': (datetime.strptime(str(datetime.now().date()),
                                                                        "%Y-%m-%d") - datetime.strptime(
-                            deal[0][self.timeInStage(deal[0]["STAGE_ID"])][0:10], "%Y-%m-%d")).days + 1 if deal[0][self.timeInStage(deal[0]["STAGE_ID"])][0:10] != '' else '0',
+                            deal[0][self.timeInStage(deal[0]["STAGE_ID"])][0:10], "%Y-%m-%d")).days + 1 if deal[0][self.timeInStage(deal[0]["STAGE_ID"])] not in ['', None] else '0',
 
                         "Признание банкротом" : 'Да' if deal[0]["STAGE_ID"] in self.recognized else 'Нет',
                             "Руководитель группы": f'{leader["name"]} {leader["last_name"]}',
@@ -166,7 +171,7 @@ class InfoBotMethods:
                         "Стадия дела": self.stage.get(deal[0]["STAGE_ID"], 'В работе'),
                         'Дней нахождения в стадии': (datetime.strptime(str(datetime.now().date()),
                                                                        "%Y-%m-%d") - datetime.strptime(
-                            deal[0][self.timeInStage(deal[0]["STAGE_ID"])][0:10], "%Y-%m-%d")).days + 1 if deal[0][self.timeInStage(deal[0]["STAGE_ID"])][0:10] != '' else '0',
+                            deal[0][self.timeInStage(deal[0]["STAGE_ID"])][0:10], "%Y-%m-%d")).days + 1 if deal[0][self.timeInStage(deal[0]["STAGE_ID"])] not in ['', None] else '0',
 
                         "Признание банкротом": 'Да' if deal[0]["STAGE_ID"] in self.recognized else 'Нет',
                         "Руководитель группы": f'{leader["name"]} {leader["last_name"]}',
